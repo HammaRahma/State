@@ -2,6 +2,7 @@ import { Button } from 'react-bootstrap';
 import './App.css';
 import React, {Component} from 'react';
 
+
 class App extends Component {
   state ={
     Person:{ 
@@ -10,17 +11,29 @@ class App extends Component {
     imgSrc:"https://th.bing.com/th/id/OIP.kQTNYGMAA2z0_WcX6l3MlgHaLF?w=182&h=272&c=7&r=0&o=5&dpr=1.3&pid=1.7",
     profession:"actor"
   },
-  show:true,
-  textButton:"Show Profile"
+  show:false,
+  textButton:"Show Profile",
+  t:0
 };
   showPerson = () => {
     this.setState({
       ...this.state,
       show: !this.state.show,
-      textButton:"Hide Profile"
+      textButton:(this.state.textButton === "Show Profile")?"Hide Profile":"Show Profile"
+      
     });
   };
-
+ 
+  componentDidMount() {
+   setInterval(() => {
+    this.setState(prevState=>({
+      t:prevState.t+0.5
+    }))
+   }, 1000)
+  }
+   
+      
+ 
   render(){
     //const [show, setShow]=useState(true)
   return (
@@ -37,8 +50,8 @@ class App extends Component {
       </div>
       
     )}
-    <Button variant="outline-info" onClick={this.showPerson}>{this.state.textButton}</Button><br />
-
+    <Button variant="outline-info" onClick={this.showPerson}>{this.state.textButton}</Button>
+        {this.state.t}sec..
     </div>
   );
   }
@@ -46,6 +59,7 @@ class App extends Component {
 
 export default App;
  
+
 
 
 
